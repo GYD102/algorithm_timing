@@ -67,7 +67,61 @@ int* selection_sort(int deck[], size_t deck_size){
 }
 
 int* insertion_sort(int deck[], size_t deck_size){
-    
+    int i, j, k, temp;
+    for(i = 1; i < deck_size; i++){
+        for(j = 0; j < i; j++){
+            if(deck[i] < deck[j]){
+                temp = deck[j];
+                deck[j] = deck[i];
+                deck[i] = temp;
+                for(k = j+1; k < i; k++){
+                    temp = deck[k];
+                    deck[k] = deck[i];
+                    deck[i] = temp;
+                }
+            }
+        }
+    }
+    return deck;
+}
+
+int* merge_sort_iter(int* deck, size_t deck_size_0, size_t deck_size){
+    if(deck_size < 2) return deck;
+    int sorted_deck[deck_size];
+    int j = deck_size_0;
+    int i, k = 0;
+    while(i < deck_size_0 && j < deck_size){
+        sorted_deck[k] = deck[i];
+        if(deck[j] < deck[i]){
+            sorted_deck[k] = deck[j];
+            j++;
+        }
+        else i++;
+        k++;
+    }
+    if(i = deck_size_0){
+        while(j < deck_size){
+            sorted_deck[k] = deck[j];
+            j++;
+            k++;
+        }
+    }
+    else{
+        while(i < deck_size_0){
+            sorted_deck[k] = deck[i];
+            i++;
+            k++;
+        }
+    }
+    for(i = 0; i < deck_size; i++)
+        deck[i] = sorted_deck[i];
+    return deck;
+}
+
+int* merge_sort(int deck[], size_t deck_size){
+    if(deck_size < 2) return deck;
+    merge_sort(deck, deck_size / 2);
+    merge_sort(deck + deck_size / 2 * sizeof(int), deck_size - deck_size / 2);
 }
 
 int main(){
@@ -75,6 +129,8 @@ int main(){
     // testing_0(test, sizeof(test));
     print_arr(test);
     // print_arr(bubble_sort(test, 10));
-    print_arr(selection_sort(test, 10));
+    // print_arr(selection_sort(test, 10));
+    print_arr(insertion_sort(test, 10));
     print_arr(test);
+    printf("3/2 = %d\n", 3/2);
 }
