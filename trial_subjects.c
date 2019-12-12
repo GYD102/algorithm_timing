@@ -13,8 +13,18 @@ int testing_0(int t[], size_t arr_size){
     return 0;
 }
 
-int print_arr(int deck[]){
-    size_t deck_size = 10;
+int testing_1(){
+    short s[5];
+    int t[5];
+    long u[5];
+    printf("short[] s: %p\ns + 1: %p\n\n", s, s+1);
+    printf("int[] t: %p\nt + 1: %p\n\n", t, t+1);
+    printf("long[] u: %p\nu + 1: %p\n\n", u, u+1);
+    return 0;
+}
+
+int print_arr(int deck[], int deck_size){
+    // size_t deck_size = 10;
     printf("[%d", deck[0]);
     for(int i = 1; i < deck_size; i++){
         printf(", %d", deck[i]);
@@ -85,11 +95,14 @@ int* insertion_sort(int deck[], size_t deck_size){
     return deck;
 }
 
-int* merge_sort_iter(int* deck, size_t deck_size_0, size_t deck_size){
+int* merge_sort(int* deck, size_t deck_size){
     if(deck_size < 2) return deck;
+    merge_sort(deck, deck_size / 2);
+    merge_sort(deck + deck_size / 2, deck_size - deck_size / 2);
     int sorted_deck[deck_size];
+    int deck_size_0 = deck_size / 2;
     int j = deck_size_0;
-    int i, k = 0;
+    int i = 0, k = 0;
     while(i < deck_size_0 && j < deck_size){
         sorted_deck[k] = deck[i];
         if(deck[j] < deck[i]){
@@ -99,7 +112,7 @@ int* merge_sort_iter(int* deck, size_t deck_size_0, size_t deck_size){
         else i++;
         k++;
     }
-    if(i = deck_size_0){
+    if(i == deck_size_0){
         while(j < deck_size){
             sorted_deck[k] = deck[j];
             j++;
@@ -118,19 +131,19 @@ int* merge_sort_iter(int* deck, size_t deck_size_0, size_t deck_size){
     return deck;
 }
 
-int* merge_sort(int deck[], size_t deck_size){
-    if(deck_size < 2) return deck;
-    merge_sort(deck, deck_size / 2);
-    merge_sort(deck + deck_size / 2 * sizeof(int), deck_size - deck_size / 2);
+int* quick_sort(int deck[], size_t deck_size){
+    
+    return deck;
 }
 
 int main(){
     // printf("Size of test array = %ld\n\n", sizeof(test));
     // testing_0(test, sizeof(test));
-    print_arr(test);
-    // print_arr(bubble_sort(test, 10));
-    // print_arr(selection_sort(test, 10));
-    print_arr(insertion_sort(test, 10));
-    print_arr(test);
-    printf("3/2 = %d\n", 3/2);
+    // testing_1();
+    print_arr(test, 10);
+    // print_arr(bubble_sort(test, 10), 10);
+    // print_arr(selection_sort(test, 10), 10);
+    // print_arr(insertion_sort(test, 10), 10);
+    print_arr(merge_sort(test, 10), 10);
+    print_arr(test, 10);
 }
